@@ -1,0 +1,219 @@
+<App Theme="Basic">
+	<DockPanel>
+		<Style>
+			<Button ux:InheritStyle="false" HitTestMode="LocalBoundsAndChildren" />
+			<Text FontSize="18" TextColor="#333" TextWrapping="Wrap">
+				<Font File="Assets/Roboto-Regular.ttf" />
+			</Text>
+		</Style>
+
+		<StatusBarBackground Dock="Top" />
+		<BottomBarBackground Dock="Bottom" />
+
+		<JavaScript File="app.js" ux:Global="app" />
+		<JavaScript>
+			var app = require('app');
+			module.exports = new app.MainView();
+		</JavaScript>
+		
+		<DockPanel Margin="20" Background="White">
+			<Rectangle Layer="Background" Opacity="0" Fill="#FD1313">
+				<Stroke Width="1" Brush="#ddd" />
+			</Rectangle>
+			<Text ux:Class="LabelText" Margin="0,0,0,0" />
+			<Style>
+				<TextInput ux:InheritStyle="false" TextAlignment="Left" Margin="30,0,0,0" HitTestMode="LocalBoundsAndChildren" Focus.IsFocusable="true" Focus.Delegate="_textInputCore">
+
+					<PlainTextEdit ux:Name="_textInputCore" />
+
+					<WhilePressed>
+					  <GiveFocus Target="_textInputCore" />
+					</WhilePressed>
+				</TextInput>
+			</Style>
+
+			<StackPanel Dock="Top">
+				<Grid Columns="auto,1*,auto">
+					<Button HitTestMode="LocalBoundsAndChildren" Width="60" Height="60" Clicked="{toggleAll}">
+						<Panel Layer="Background">
+							<Panel Height="1" Width="16" Background="#ddd">
+								<Rotation Degrees="45" />
+								<Translation X="-0.5" RelativeTo="Size" />
+							</Panel>
+							<Panel Height="1" Width="16" Background="#ddd">
+								<Rotation Degrees="-45" />
+								<Translation X="0.5" RelativeTo="Size" />
+							</Panel>
+							<Translation Y="8" />
+						</Panel>
+					</Button>
+					<TextInput Value="{titleInput}" TextColor="#999" FontSize="18" TextWrapping="NoWrap" Alignment="CenterLeft" MinWidth="100" Margin="10,10,15,10" />
+
+					<Button Clicked="{addItem}" Width="60" Height="60" HitTestMode="LocalBoundsAndChildren">
+						<Panel Layer="Background">
+							<Panel Height="1" Width="30" Background="#ddd" />
+							<Panel Width="1" Height="30" Background="#ddd" />
+						</Panel>
+					</Button>
+				</Grid>
+				<Rectangle Height="1" Fill="#ddd" />
+			</StackPanel>
+			<ScrollView>
+				<Style>
+					<Text Margin="30,0,0,0" FontSize="20" Alignment="CenterLeft" TextColor="#999" />
+				</Style>
+				<StackPanel>
+					<Each Items="{todoList}">
+						<Grid ux:Name="itemPanel" Columns="auto,1*,auto" Alignment="Top" Height="60" Opacity="1" BoxSizing="Limit">
+							<LimitBoxSizingData ux:Name="boxData" LimitHeight="100" LimitHeightUnit="Percent" />
+							<WhileTrue Value="{hidden}">
+								<Change boxData.LimitHeight="0" Duration="0.4" Easing="CircularInOut" />
+								<Change itemPanel.Opacity="0" Duration="0.25" Easing="CircularInOut" />
+							</WhileTrue>
+							
+							<Button Clicked="{toggleItem}" Alignment="CenterLeft" Width="60" Height="60">
+								<Panel ux:Name="checkedIcon" Opacity="0">
+									<Style>
+										<Rectangle>
+											<Stroke Brush="#50ac9a" Width="1" />
+										</Rectangle>
+									</Style>
+									<Rectangle Height="1" Width="6">
+										<Rotation Degrees="45" />
+										<Translation X="-0.5" RelativeTo="Size" />
+									</Rectangle>
+									<Rectangle Height="1" Width="14">
+										<Rotation Degrees="-45" />
+										<Translation X="0.5" RelativeTo="Size" />
+									</Rectangle>
+									<Translation Y="0.1" X="-0.05" RelativeTo="Size" />
+								</Panel>
+
+								<Circle Layer="Background" HitTestMode="LocalVisualAndChildren" Width="32" Height="32" Fill="#fff">
+									<Stroke Width="1">
+										<SolidColor ux:Name="checkedCircleColor" Color="#ddd" />
+									</Stroke>
+								</Circle>
+							</Button>
+
+							<Panel>
+								<Panel Alignment="Left" Width="200">
+									<Rectangle ux:Name="textLine" Height="1" Opacity="0" Margin="30,0,0,0" Fill="#bbb" />
+									<Text ux:Name="itemText" Value="{title}" Alignment="CenterLeft" TextAlignment="Left" />
+								</Panel>
+							</Panel>
+
+
+							<WhileTrue Value="{checked}">
+								<Change checkedCircleColor.Color="#50ac9a" Duration="0.3" />
+								<Change checkedIcon.Opacity="1" Duration="0.3" />
+								<Change textLine.Opacity="1" Duration="0.3" />
+								<Change itemText.TextColor="#ddd" Duration="0.3" />
+							</WhileTrue>
+
+							<Button Alignment="CenterRight" Clicked="{deleteItem}" Width="60" Height="60" HitTestMode="LocalBoundsAndChildren">
+								<Panel Layer="Background" Height="16">
+									<Panel Width="20" Height="1" Background="#ddd">
+										<Rotation Degrees="45" />
+									</Panel>
+									<Panel Width="20" Height="1" Background="#ddd">
+										<Rotation Degrees="-45" />
+									</Panel>
+								</Panel>
+							</Button>
+
+							<LayoutAnimation>
+								<Move RelativeTo="LayoutChange" X="1" Duration="0.6" Easing="BounceIn" />
+							</LayoutAnimation>
+							<AddingAnimation>
+								<Move RelativeTo="Size" X="1" Duration="0.3" Easing="CircularInOut" />
+							</AddingAnimation>
+							<RemovingAnimation>
+								<Move RelativeTo="Size" X="1" Duration="0.3" Easing="CircularInOut" />
+							</RemovingAnimation>
+
+							<Rectangle Height="1" ColumnSpan="3" Row="0" Alignment="Bottom" Fill="#ddd" />
+						</Grid>
+					</Each>
+				</StackPanel>
+			</ScrollView>
+
+			<StackPanel Dock="Bottom">
+				<Rectangle Height="1" Fill="#ddd" />
+				<Style>
+					<Button Height="40" />
+					<Text FontSize="14" TextColor="#999" />
+				</Style>
+
+				<Panel>
+					<MultiLayoutPanel ux:Name="multiLayout">
+						<Style>
+							<ButtonText TextAlignment="Center" />
+						</Style>
+						<GridLayout Columns="1*,1*,1.5*" />
+						<Button ux:Name="allButton" Text="" Clicked="{showAll}">
+							<Panel Alignment="Center">
+								<LabelText Value="All" TextAlignment="Center" />
+								<Placeholder>
+									<Rectangle ux:Name="indicator" Column="0" Row="0" CornerRadius="3" Margin="-10,-5,-10,-5">
+										<LayoutAnimation>
+											<Move RelativeTo="LayoutChange" X="1" Duration="0.5" Easing="BackIn" />
+											<Resize RelativeTo="LayoutChange" Duration="0.5" Easing="BackIn" />
+										</LayoutAnimation>
+										<Stroke Width="1" Brush="#E7D9DE" />
+									</Rectangle>
+								</Placeholder>
+							</Panel>
+
+							<Clicked>
+								<Set multiLayout.LayoutElement="allButton" />
+							</Clicked>
+						</Button>
+						<Button ux:Name="activeButton" Text="" Clicked="{showActive}">
+							<Panel Alignment="Center">
+								<LabelText TextAlignment="Center" Value="Active" />
+								<Placeholder Target="indicator" />
+							</Panel>
+							<Clicked>
+								<Set multiLayout.LayoutElement="activeButton" />
+							</Clicked>
+						</Button>
+						<Button ux:Name="completedButton" Text="" Clicked="{showCompleted}">
+							<Panel Alignment="Center">
+								<LabelText TextAlignment="Center" Value="Completed" />
+								<Placeholder Target="indicator" />
+							</Panel>
+							<Clicked>
+								<Set multiLayout.LayoutElement="completedButton" />
+							</Clicked>
+						</Button>
+					</MultiLayoutPanel>
+				</Panel>
+				<Panel>
+
+					<Text Value="{remainingText}" Margin="10" Alignment="Left" />
+
+					<Panel ux:Name="clearCompletedButton" Alignment="TopRight" Clicked="{clearCompleted}" Margin="10" IsEnabled="{canClearCompleted}">
+						<Text Value="Clear completed" FontSize="14" TextColor="#999" Margin="10,0,10,0" />
+						<WhileDisabled>
+							<Change clearCompletedButton.Opacity="0" Duration="0.3" />
+						</WhileDisabled>
+					</Panel>
+
+
+					<Rectangle Height="1" Alignment="Top" Fill="#ddd" />
+				</Panel>
+			</StackPanel>
+		</DockPanel>
+
+		<Rectangle Margin="25" Fill="#fff">
+			<Translation Y="10" />
+			<Stroke Width="1" Brush="#ddd" />
+		</Rectangle>
+		<Rectangle Margin="30" Fill="#fff">
+			<Translation Y="20" />
+			<Stroke Width="1" Brush="#ddd" />
+		</Rectangle>
+	</DockPanel>
+
+</App>
