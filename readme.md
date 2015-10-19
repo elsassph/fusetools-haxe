@@ -13,10 +13,12 @@ reactive programming approach. Unless you use Haxe to have strong typing!
 
 ## Haxe?
 
-Haxe is a remarkable strongly typed language which can fit as well heavy-weight single-page
-applications but also distributed/reactive code as FuseTools.
+Haxe is a superb strongly typed language which can fit as well heavy-weight single-page
+applications but also distributed/reactive code as FuseTools applications.
 
-I believe Haxe compiler and type system can bring a lot of value to Fuse projects.
+Here's my attempt to convince myself (and maybe you) that the Haxe compiler and type system can bring a lot of 
+value to Fuse projects: it's fun to play with JavaScript, but how do you control the integrity of your projects
+when they will have grown past the Poc size?
 
 ## Observable
 
@@ -58,6 +60,9 @@ class View {
 
 module.exports = new View();
 ```
+
+**It may look like syntaxic sugar, but it's way more than that**: this is fully strongly typed. Everything 
+is validated by the compiler and guarranteed to be sound before running it. 
 
 ## module.exports
 
