@@ -53,7 +53,7 @@ class View {
 	
 	public function new() {
 		hello = observable(function() {
-			return "Hello ${who.value}';
+			return 'Hello ${who.value}';
 		});
 	}
 }
@@ -82,7 +82,7 @@ It is possible however to have shared code between views:
 </JavaScript> 
 ```
 
-`app.js` would be Haxe generated, and to expose these view scripts we can write:
+`app.js` would be Haxe generated, and to expose these view scripts we need to write:
 
 ```haxe
 class App {
