@@ -45,7 +45,7 @@ module.exports = {
 Haxe doesn't like that so we have to have a slightly different approach:
 
 ```haxe
-import Fuse.observable;
+import Fuse.*;
 
 class View {
 	var who = observable('World'); // Observable<String>
@@ -53,7 +53,7 @@ class View {
 	
 	public function new() {
 		hello = observable(function() {
-			return "Hello " + who.value;
+			return "Hello ${who.value}';
 		});
 	}
 }
