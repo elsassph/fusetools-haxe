@@ -59,9 +59,7 @@ class TodoStore
 	
 	public function setAllChecked(state:Bool) 
 	{
-		list.forEach(function(task) {
-			task.checked.value = state;
-		});
+		list.forEach(function(task) task.checked.value = state);
 	}
 	
 	public function clearCompleted() 

@@ -13,6 +13,7 @@ class MainView implements UXExport
 	var currentTab = observable(Tab.All);
 	var store:TodoStore;
 	var remainingCount:Observable<Int>;
+	var unusedProp = observable(0); // removed by DCE
 	
 	function new()
 	{

@@ -20,16 +20,20 @@ class AutoBind
 			if (field.name == 'new') 
 			{
 				ctor = field;
+				preventDCE(field);
 				continue;
 			}
 			var acc = field.access;
-			if (acc.indexOf(Access.APublic) >= 0 && acc.indexOf(Access.AStatic) < 0)
+			if (acc.indexOf(Access.APublic) >= 0)
 			{
-				switch (field.kind) {
-					case FieldType.FFun(f):
-						toBind.push(field);
-					default:
-				}
+				preventDCE(field);
+				// functions needs binding
+				if (acc.indexOf(Access.AStatic) < 0)
+					switch (field.kind) {
+						case FieldType.FFun(f):
+							toBind.push(field);
+						default:
+					}
 			}
 		}
 		
@@ -52,6 +56,14 @@ class AutoBind
 			default:
 		}
 		return fields;
+	}
+	
+	static function preventDCE(field:Field) 
+	{
+		field.meta.push({
+			name: ':keep',
+			pos: Context.currentPos()
+		});
 	}
 }
 #end

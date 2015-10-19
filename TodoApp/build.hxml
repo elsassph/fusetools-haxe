@@ -1,5 +1,8 @@
 -cp ../lib/src
 -cp src
+
 -js app.js
--D js-classic
 -main App
+
+-D js-classic
+-dce full
