@@ -55,6 +55,7 @@ class View {
 		hello = observable(function() {
 			return 'Hello ${who.value}';
 		});
+		who.value = 42; // Compiler error: Int should be String
 	}
 }
 
