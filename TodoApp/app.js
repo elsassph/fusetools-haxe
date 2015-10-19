@@ -7,8 +7,8 @@ App.main = function() {
 };
 var Fuse = require("FuseJS");
 Math.__name__ = true;
-var fuse_UXExport = function() { };
-fuse_UXExport.__name__ = true;
+var UXExport = function() { };
+UXExport.__name__ = true;
 var js_Boot = function() { };
 js_Boot.__name__ = true;
 js_Boot.__string_rec = function(o,s) {
@@ -154,7 +154,7 @@ var ux_MainView = function() {
 	this.clearCompleted = $bind(this,this.clearCompleted);
 };
 ux_MainView.__name__ = true;
-ux_MainView.__interfaces__ = [fuse_UXExport];
+ux_MainView.__interfaces__ = [UXExport];
 ux_MainView.prototype = {
 	showAll: function() {
 		this.currentTab.value = store_Tab.All;

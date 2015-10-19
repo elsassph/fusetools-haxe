@@ -1,14 +1,15 @@
-package fuse;
+package _macro;
 
+#if macro
 import haxe.macro.Context;
 import haxe.macro.Expr.Field;
 import haxe.macro.Expr.Access;
 import haxe.macro.Expr.FieldType;
 import haxe.macro.Expr;
 
-class FuseMacros
+class AutoBind
 {
-	static public function autoBind()
+	static public function build()
 	{
 		// lookup public functions and constructor
 		var fields:Array<Field> = Context.getBuildFields();
@@ -41,7 +42,6 @@ class FuseMacros
 				switch (f.expr.expr)
 				{
 					case EBlock(exprs):
-						//
 						for (field in toBind)
 						{
 							field.access.push(Access.ADynamic);
@@ -54,3 +54,4 @@ class FuseMacros
 		return fields;
 	}
 }
+#end

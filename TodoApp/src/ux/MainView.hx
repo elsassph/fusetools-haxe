@@ -1,8 +1,6 @@
 package ux;
 
 import Fuse.*;
-import fuse.Observable;
-import fuse.UXExport;
 import store.TodoStore;
 
 class MainView implements UXExport

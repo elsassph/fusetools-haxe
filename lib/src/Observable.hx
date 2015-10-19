@@ -1,5 +1,3 @@
-package fuse;
-
 import haxe.extern.Rest;
 
 extern class Observable<T>

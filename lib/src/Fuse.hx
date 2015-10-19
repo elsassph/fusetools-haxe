@@ -1,6 +1,4 @@
-import fuse.Observable;
 import haxe.extern.Rest;
-import js.Promise;
 
 @:jsRequire('FuseJS')
 extern class Fuse

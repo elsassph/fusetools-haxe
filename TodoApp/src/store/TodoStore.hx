@@ -1,7 +1,6 @@
 package store;
 
 import Fuse.*;
-import fuse.Observable;
 
 enum Tab {
 	All;
