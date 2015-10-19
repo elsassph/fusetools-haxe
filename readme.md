@@ -42,10 +42,10 @@ module.exports = {
 // UX can bind `hello` and will update automatically whenever `who`'s value change!!!
 ```
 
-Haxe doesn't like that so we have to have a slightly different approach:
+Haxe doesn't like that so we have to have a slightly different approach, but it looks quite nice in the end:
 
 ```haxe
-import Fuse.*;
+import Fuse.observable;
 
 class View {
 	var who = observable('World'); // Observable<String>
