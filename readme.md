@@ -61,7 +61,7 @@ class View {
 module.exports = new View();
 ```
 
-It may look like syntaxic sugar, but it's way more than that: this is fully strongly typed. Everything 
+**It may look like syntaxic sugar, but it's way more than that**: this is fully strongly typed. Everything 
 is validated by the compiler and guarranteed to be sound before running it. 
 
 ## module.exports
