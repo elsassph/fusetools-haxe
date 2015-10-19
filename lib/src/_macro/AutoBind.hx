@@ -19,15 +19,15 @@ class AutoBind
 		{
 			if (field.name == 'new') 
 			{
-				ctor = field;
 				preventDCE(field);
+				ctor = field;
 				continue;
 			}
 			var acc = field.access;
 			if (acc.indexOf(Access.APublic) >= 0)
 			{
 				preventDCE(field);
-				// functions needs binding
+				// functions need binding
 				if (acc.indexOf(Access.AStatic) < 0)
 					switch (field.kind) {
 						case FieldType.FFun(f):
