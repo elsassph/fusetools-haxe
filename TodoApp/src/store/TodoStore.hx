@@ -9,6 +9,12 @@ enum Tab {
 	Completed;
 }
 
+typedef Task = {
+	var title:String;
+	var checked:Observable<Bool>;
+	var hidden:Observable<Bool>;
+}
+
 class TodoStore
 {
 	public var list:Observable<Task>;
@@ -54,19 +60,13 @@ class TodoStore
 	
 	public function setAllChecked(state:Bool) 
 	{
-		list.forEach(function(x) {
-			x.checked.value = state;
+		list.forEach(function(task) {
+			task.checked.value = state;
 		});
 	}
 	
 	public function clearCompleted() 
 	{
-		list.removeWhere(function(x) return x.checked.value);
+		list.removeWhere(function(task) return task.checked.value);
 	}
-}
-
-typedef Task = {
-	var title:String;
-	var checked:Observable<Bool>;
-	var hidden:Observable<Bool>;
 }

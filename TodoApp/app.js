@@ -118,13 +118,13 @@ store_TodoStore.prototype = {
 		if(this.list.contains(task)) this.list.remove(task);
 	}
 	,setAllChecked: function(state) {
-		this.list.forEach(function(x) {
-			x.checked.value = state;
+		this.list.forEach(function(task) {
+			task.checked.value = state;
 		});
 	}
 	,clearCompleted: function() {
-		this.list.removeWhere(function(x) {
-			return x.checked.value;
+		this.list.removeWhere(function(task) {
+			return task.checked.value;
 		});
 	}
 };
